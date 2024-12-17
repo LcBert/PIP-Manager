@@ -20,6 +20,7 @@ class App(Tk):
 
         self.font = ("Arial", 12)
 
+        self.search_image = PhotoImage(file="img/search.png")
         self.reload_image = PhotoImage(file="img/reload.png")
         self.install_image = PhotoImage(file="img/install.png")
         self.trash_image = PhotoImage(file="img/trash.png")
@@ -30,7 +31,7 @@ class App(Tk):
         self.index_frame.grid(column=0, row=0, padx=5, pady=(5, 0), sticky="ew")
         self.index_frame.grid_columnconfigure(1, weight=1)
 
-        Label(self.index_frame, text="Search", font=self.font).grid(column=0, row=0, sticky="w")
+        Label(self.index_frame, image=self.search_image).grid(column=0, row=0, sticky="w")
 
         self.search_input = Entry(self.index_frame, font=self.font, border=1, relief="solid")
         self.search_input.grid(column=1, row=0, padx=5, sticky="ew")
