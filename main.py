@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import ttk, messagebox, simpledialog
+from tkinter import ttk, simpledialog
 import os
 
 import threads
@@ -12,13 +12,10 @@ class App(Tk):
         self.title("PIP Manager")
         self.geometry("450x500")
         self.iconbitmap("img/appicon.ico")
-        self.protocol("WM_DELETE_WINDOW", self.xquit)
         self.resizable(False, True)
 
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=1)
-
-        self.font = ("Arial", 12)
 
         self.search_image = PhotoImage(file="img/search.png")
         self.reload_image = PhotoImage(file="img/reload.png")
@@ -33,7 +30,7 @@ class App(Tk):
 
         Label(self.index_frame, image=self.search_image).grid(column=0, row=0, sticky="w")
 
-        self.search_input = Entry(self.index_frame, font=self.font, border=1, relief="solid")
+        self.search_input = Entry(self.index_frame, font=("Arial", 10), border=1, relief="solid")
         self.search_input.grid(column=1, row=0, padx=5, sticky="ew")
         self.search_input.bind("<KeyRelease>", lambda _: self.load_list_table(search=self.search_input.get()))
         self.search_input.bind("<ButtonRelease>", lambda _: self.load_list_table(search=self.search_input.get()))
@@ -91,6 +88,7 @@ class App(Tk):
                         except Exception as e:
                             print(e)
             self.reload_button.configure(state="active")
+            os.remove("packages.txt")
 
     def install_package(self):
         package_name = simpledialog.askstring("Install Package", "Enter the package name:")
@@ -105,11 +103,6 @@ class App(Tk):
 
     def start(self):
         self.mainloop()
-
-    def xquit(self):
-        # if os.path.exists("packages.txt"):
-        #     os.remove("packages.txt")
-        self.quit()
 
 
 if __name__ == "__main__":
