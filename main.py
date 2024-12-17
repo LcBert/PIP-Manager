@@ -76,14 +76,19 @@ class App(Tk):
         else:
             self.list_table.delete(*self.list_table.get_children())
             with open("packages.txt", "r") as file:
+                file.readline()
+                file.readline()
                 for index, line in enumerate(file.readlines()):
-                    label_text: list = line.split("==")
-                    if search.lower() in label_text[0].lower():
+                    label_text: list = line.split()
+                    if search.lower() in label_text[0].lower().strip():
                         if index % 2 == 0:
                             tag = ("even")
                         else:
                             tag = ("odd")
-                        self.list_table.insert("", "end", values=(label_text[0], label_text[1]), tags=tag)
+                        try:
+                            self.list_table.insert("", "end", values=(label_text[0].strip(), label_text[1].strip()), tags=tag)
+                        except Exception as e:
+                            print(e)
             self.reload_button.configure(state="active")
 
     def install_package(self):
@@ -101,8 +106,8 @@ class App(Tk):
         self.mainloop()
 
     def xquit(self):
-        if os.path.exists("packages.txt"):
-            os.remove("packages.txt")
+        # if os.path.exists("packages.txt"):
+        #     os.remove("packages.txt")
         self.quit()
 
 

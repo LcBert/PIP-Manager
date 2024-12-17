@@ -12,7 +12,7 @@ class reload_packages(threading.Thread):
 
     def run(self):
         self.app.reload_button.config(state="disabled")
-        os.system("pip freeze > packages.txt")
+        os.system("pip list > packages.txt")
         self.app.load_list_table()
         self.app.reload_button.config(state="active")
 
